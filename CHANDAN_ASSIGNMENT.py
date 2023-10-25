@@ -41,6 +41,15 @@ if a==2:
     elif b==4:
         print("question:- How memory is managed in Python?")
         print("Answer:-")
+        print("Memory management in Python is primarily managed by the Python Memory Manager, which includes several components responsible for various aspects of memory allocation and deallocation. Python's memory management is built on top of the memory management provided by the underlying operating system, but it adds a layer of abstraction to simplify memory management for the Python developer. Here are some key aspects of memory management in Python:")
+        print("1. Automatic Memory Allocation")
+        print("2. Reference Counting")
+        print("3. Cycle Detector")
+        print("4. Dynamic Typing")
+        print("5. Memory Pools")
+        print("6. GC Module")
+        print("7. Memory Profiling and Optimization")
+        print("8. Memory Efficiency")
     elif b==5:
         print("question:-  What is the purpose continue statement in python?")
         print("Answer:-")
@@ -131,6 +140,7 @@ if a==2:
     elif b==14:
         print("question:- What are negative indexes and why are they used?")
         print("Answer:-")
+        print("In Python, negative indexing allows you to access elements from the end of a sequence (such as a list, tuple, or string) rather than from the beginning. For instance, if you have a list my_list, the index -1 refers to the last element, -2 refers to the second-to-last element, and so on. Negative indexing can be useful in several scenarios")
     elif b==15:
         print("question:-  Write a Python program to count occurrences of a substring in a string.")
         print("Answer:-")
@@ -255,7 +265,12 @@ elif a==3:
     elif b==6:
         print("question:- How will you compare two lists?")
         print("Answer:-")
-
+        print("In Python, you can compare two lists using various methods depending on the specific comparison you want to perform. Here are some common techniques to compare lists:")
+        print("1: Comparing Equality")
+        print("2: Comparing Identity")
+        print("3: Comparing Element-wise")
+        print("4: Comparing Length")
+        print("5: Iterative Comparison")
     elif b==7:
         print("question:- Write a Python program to count the number of strings where the string  length is 2 or more and the first and last character are same from a given  list of strings.")
         print("Answer:-")
@@ -493,6 +508,13 @@ elif a==3:
     elif b==27:
         print("question:-  Write a Python program to replace last value of tuples in a list")
         print("Answer:-")
+        l= [(1, 2, 3), (4, 5, 6), (7, 8, 9)]
+        print("Your List is : l= [(1, 2, 3), (4, 5, 6), (7, 8, 9)]")
+        n=input("Enter the value you want to replace with last elements :")
+        a= [tup[:-1] + (n,) for tup in l]
+        print("Modified List of Tuples:")
+        for tup in a:
+            print(tup)
     elif b==28:
         print("question:-   Write a Python program to find the repeated items of a tuple.")
         print("Answer:-")
@@ -508,25 +530,67 @@ elif a==3:
     elif b==29:
         print("question:-   Write a Python program to remove an empty tuple(s) from a list of tuples. ")
         print("Answer:-")
+        l= [(1, 2, 3), (), (4, 5), (), (6,), (), (7, 8, 9)]
+        print("Your List of tuple is : l= [(1, 2, 3), (), (4, 5), (), (6,), (), (7, 8, 9)]")
+        a= [tup for tup in l if tup]
+        print("Filtered List of Tuples:")
+        for tup in a:
+            print(tup)
+
     elif b==30:
         print("question:- Write a Python program to unzip a list of tuples into individual lists.")
         print("Answer:-")
+        l= [(1, 'a'), (2, 'b'), (3, 'c')]
+        print("Your :List is : l= [(1, 'a'), (2, 'b'), (3, 'c')]")
+        a= list(zip(*l))
+        print("Unzipped Lists:")
+        for i in a:
+            print(list(i))
+
     elif b==31:
         print("question:-  Write a Python program to convert a list of tuples into a dictionary.")
         print("Answer:-")
-        l=input("input Your List of tuples :")
-        print(l)
-        dict=dict(l)
-        print("your Dictionary is :",dict)
+        l= [(1, 'a'), (2, 'b'), (3, 'c')]
+        print(" Your List of tuple is : l= [(1, 'a'), (2, 'b'), (3, 'c')]")
+        d= {t[0]: t[1] for t in l}
+        print("Dictionary from list of tuples :", d)
+
+        a = dict(l)
+        print("Dictionary from list of tuples :", a)
+
     elif b==32:
         print("question:-  How will you create a dictionary using tuples in python? ")
         print("Answer:-")
     elif b==33:
         print("question:-  Write a Python script to sort (ascending and descending) a dictionary by value.")
         print("Answer:-")
+        d= {'a': 4, 'b': 2, 'c': 1, 'd': 3}
+        print("Your Dict is : d= {'a': 4, 'b': 2, 'c': 1, 'd': 3}")
+        print("Dictionary sorted by values in ascending order:")
+        a= dict(sorted(d.items(), key=lambda item: item[1]))
+        print(a)
+        print("\nDictionary sorted by values in descending order:")
+        b= dict(sorted(d.items(), key=lambda item: item[1], reverse=True))
+        print(b)
     elif b==34:
-        print("question:-")
+        print("question:- Write a Python script to concatenate following dictionaries to create a new one.")
         print("Answer:-")
+        dict1 = {1: 'a', 2: 'b'}
+        dict2 = {3: 'c', 4: 'd'}
+        dict3 = {5: 'e', 6: 'f'}
+        print("dict1 = {1: 'a', 2: 'b'}")
+        print("dict2 = {3: 'c', 4: 'd'}")
+        print("dict3 = {5: 'e', 6: 'f'}")
+        
+        concatenated_dict_1 = dict1.copy()
+        concatenated_dict_1.update(dict2)
+        concatenated_dict_1.update(dict3)
+        print("Concatenated Dictionary using the update method :")
+        print(concatenated_dict_1)
+        concatenated_dict_2 = {**dict1, **dict2, **dict3}
+        print("\nConcatenated Dictionary using the unpacking ** operator :")
+        print(concatenated_dict_2)
+
     elif b==35:
         print("question:-")
         print("Answer:-")
