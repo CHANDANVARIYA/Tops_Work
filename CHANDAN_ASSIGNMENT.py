@@ -4,7 +4,7 @@ print("Note:-")
 print("All the Quetions And Answers of Assignment are in this Project")
 print("Ask Any Quations Between")
 print("Modual No.: 2 in 23 Quations")
-print("Modual No.: 3 in 28 Quations")
+print("Modual No.: 3 in 34 Quations")
 
 a=int(input("ENTER MODUAL NO. :"))
 b=int(input("ENTER QUE. NO. :"))
@@ -590,29 +590,6 @@ elif a==3:
         concatenated_dict_2 = {**dict1, **dict2, **dict3}
         print("\nConcatenated Dictionary using the unpacking ** operator :")
         print(concatenated_dict_2)
-
-    elif b==35:
-        print("question:-")
-        print("Answer:-")
-    elif b==36:
-        print("question:-")
-        print("Answer:-")
-    elif b==37:
-        print("question:-")
-        print("Answer:-")
-    elif b==38:
-        print("question:-")
-        print("Answer:-")
-    elif b==39:
-        print("question:-")
-        print("Answer:-")
-    elif b==40:
-        print("question:-")
-        print("Answer:-")
-
-
-
-
 
 
 
