@@ -42,13 +42,7 @@ select job_id, last_name, salary
 from employees
 where job_id ="SA_REP" and "ST_CLERK" and salary <> 3500 and salary <> 2500 and salary <> 5000 ;
 -- que :- (2)1
-select min(salary), min(commission_pct)
-from employees;
-
-select max(salary), max(commission_pct)
-from employees;
-
-select avg(salary), avg(commission_pct)
+select min(salary), min(commission_pct),avg(salary), avg(commission_pct),max(salary), max(commission_pct)
 from employees;
 -- que :-(2)2
 select department_id,sum(salary) as "Total Payout SALARY",sum(commission_pct) as "Total Payout COMMISSITION"
@@ -94,16 +88,17 @@ select m.first_name, count(e.employee_id)as "employees",m.department_id
 from employees as e join employees as m on e.manager_id=m.employee_id
 group by m.first_name, m.department_id;
 -- que :- (2)11
-select e.last_name as "EMP Name",m.last_name as "MNG Name", e.salary, e.department_id
+select e.last_name as "EMP Name",m.last_name as "MNG Name", e.salary, m.salary,e.department_id
 from employees as e join employees as m on e.manager_id=m.employee_id
 where e.last_name like "_a%" and m.last_name like "_a%";
 -- que:-(2)12
-select sum(salary)as "sum of salary", avg(salary)as "Avg of Salary",department_id
+select sum(salary)as "sum of salary", floor(avg(salary))as "Avg of Salary",department_id
 from employees
 group by department_id;
 -- que :- (2)13
 select max(salary),department_id
 from employees
+where department_id is not null
 group by department_id;
 -- que :-(2)14
 select last_name,salary, commission_pct,
@@ -114,7 +109,7 @@ end as "salary 10%"
 from employees;
 -- que :- (3)1
 select concat(UPPER(substring(last_name,2,1)),substring(last_name,3,3))as "2-5th Last Name"
-from employees;
+from employees; 
 -- que :- (3)2
 select concat(first_name,"-",last_name)as "Full Name", monthname(hire_date)as "Month of Join"
 from employees;
@@ -126,7 +121,7 @@ when salary/2 < 10000 then round(salary + salary*11.5/100 + 1500,2)
 end as "bonues"
 from employees;
 -- que :- (3)4 
-select concat(substring(e.employee_id,1,2), "00" ,substring(e.employee_id,3),"E") as "New_EMP_id", e.department_id,e.salary,REPLACE(m.last_name,"Z","$"),REPLACE(m.last_name,"z","$")
+select concat(substring(e.employee_id,1,2), "00" ,substring(e.employee_id,3),"E") as "New_EMP_id", e.department_id,e.salary,REPLACE(m.last_name,"Z","$")as "replace 'Z'",REPLACE(m.last_name,"z","$")as "replace 'z'"
 from employees as e join employees as m on e.manager_id=m.employee_id;
 -- que :- (3)5
 select concat(upper(substring(last_name,1,1)),lower(substring(last_name,2)))as "Last name",length(last_name)
@@ -144,7 +139,7 @@ where last_name= reverse(lower(last_name));
 select last_name,
 case
 when last_name = reverse(last_name) then "palidrom"
-end
+end as "Palidrom Name"
 from employees;
 -- que :- (3)8
 SELECT CONCAT(UPPER(SUBSTRING(first_name, 1, 1)), LOWER(SUBSTRING(first_name, 2))) AS "NAME"
@@ -152,6 +147,7 @@ FROM employees;
 -- que :- (3)9
 select substring_index(substring_index(street_address, " ",2), " ",-1)
 from locations;
+
 -- que :- (3)10
 select first_name,lower(concat(last_name, substring(first_name,1,1),"@systechusa.com")) as "Email Adreess"
 from employees;
@@ -175,10 +171,14 @@ where salary <> (select Min(salary) from employees);
 select employees.last_name, departments.department_id ,departments.department_name
 from employees join departments on employees.department_id=departments.department_id;
 -- que :- (4)2
-select employees.job_id, departments.department_id, locations.city
-from employees join departments on employees.department_id=departments.department_id join locations on locations.location_id=departments.location_id
-where departments.department_id = 40;
+select distinct(job_id),department_id,location_id
+from departments join locations using (location_id) join jobs
+where department_id =40;
 -- que :- (4)3
+select last_name,department_name,location_id,city,commission_pct
+from employees join departments using (department_id) join locations using (location_id)
+where commission_pct is not null;
+
 select employees.last_name, departments.department_name, locations.location_id,locations.city, employees.commission_pct
 from employees join departments on employees.department_id=departments.department_id join locations on locations.location_id=departments.location_id
 where employees.commission_pct is not null;
@@ -209,9 +209,9 @@ when employees.salary < 3000 then "C"
 end as " grade by Salary"
 from employees join departments on employees.department_id=departments.department_id;
 -- que :- (4)10
-select e.first_name, e.hire_date
+select e.first_name as "EMP_NAME", e.hire_date as "EMP_HIRE_DATE",m.first_name as "MGR_NAME",m.hire_date"MGR_HIRE_DATE"
 from employees as e join employees as m on e.manager_id=m.employee_id
-where e.hire_date > m.hire_date;
+where e.hire_date < m.hire_date;
 -- que :- (5)1
 select last_name, hire_date
 from employees
@@ -248,9 +248,11 @@ where department_id = 80;
 -- que :- (5)9
 select employee_id,salary, department_id,
 case
-when department_id = 10 and 30 then "5%"
+when department_id = 10  then "5%"
+when department_id = 30 then "5%"
 when department_id = 20 then "10%"
-when department_id = 40 and 50 then "15%"
+when department_id = 40  then "15%"
+when department_id = 50 then "15%"
 when department_id = 60 then "0%"
 when department_id <> 10 and 30 and 20 and 40 and 50 and 60 then "Other"
 end as "raise_percentages"
@@ -270,10 +272,9 @@ from employees;
 select concat(m.first_name," ",m.last_name) as "MNG_NAME",m.salary ,dense_rank() over (order by salary desc)as RN
 from employees as e join employees as m on e.manager_id=m.employee_id
 group by m.employee_id
-order by m.salary DESC
 limit 3;
 -- QUE :- (6)1
-select *, floor(datediff(resignation_date,hire_date)),
+select *, floor(datediff(resignation_date,hire_date)) as "date_diff",
 case
 when Resignation_Date is not null then concat(floor(datediff(resignation_date,hire_date)/365)," ","Year"," ", floor(datediff(resignation_date,hire_date)%365/30)," ","Month"," ",floor(datediff(resignation_date,hire_date)%365%30)," ","Days")
 when Resignation_Date is null then concat(floor(datediff(Now(),hire_date)/365)," ","Year"," ",floor(datediff(Now(),hire_date)%365/30)," ","Month"," ",floor(datediff(Now(),hire_date)%365%30)," ","Days")
