@@ -18,26 +18,31 @@ select *
 from workers
 where salary between 50000 and 100000; 
 -- QUE :- (1)5
-select *
+select salary, Department
 from workers
-where salary = salary;
+group by salary, department
+having count(*) >  1;
 -- QUE :- (1)6
 select*
 from workers
 limit 6;
 -- QUE :- (1)7
-select department, count(worker_id)
+select department, count(*) as "CountOf_Emp"
 from workers
 group by department
-having count(worker_id) >3;
+having count(*) <3;
 -- QUE :- (1)8
-select department, count(worker_id)
+select department, count(*)
 from workers
 group by department;
 -- QUE :- (1)9
 SELECT department, last_name, salary
 FROM workers as e1
 WHERE salary = (select MAX(salary) from workers as e2 where e1.department = e2.department);
+
+select department, last_name,salary
+from workers
+where (Department,salary) in (select Department, max(salary) from workers group by Department);
 -- QUE :- (2)1
 select *
 from student;
